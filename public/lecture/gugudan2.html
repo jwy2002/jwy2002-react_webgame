@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<head>
+  <meta charset='UTF-8' />
+  <title>구구단</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+  //React Hooks
+  //통으로 재실행
+  //class => className
+  //for => htmlFor
+  const Gugudan = () => {
+    const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+    const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+    const [value, setValue] = React.useState('');
+    const [result, setResult] = React.useState('');
+    const inputRef = React.useRef(null);  //DOM 접근
+
+    const onSubmitForm = (e) => {
+      e.preventDefault();
+      if( parseInt(value) === first * second ) {
+        // setResult('정답: ' + value);
+        // 이전 Result를 사용하는 경우 함수형 사용
+        setResult((prevResult) => {
+          return '정답: '  + value;
+        });
+        setFirst(Math.ceil(Math.random() * 9));
+        setSecond(Math.ceil(Math.random() * 9));
+        setValue('');
+      }
+      else {
+        setResult('땡');
+        setValue('');
+      }
+      inputRef.current.focus();
+    }
+
+    const onChangeInput = (e) => {
+      setValue(e.target.value);
+    };
+
+    console.log('랜더링');
+
+    return (
+      <React.Fragment>
+        <div>{first} 곱하기 {second} 는?</div>
+        <form onSubmit={onSubmitForm}>
+          <input ref={inputRef} onChange={onChangeInput} value={value} />
+          <button>입력!</button>
+        </form>
+        <div id="result">{result}</div>
+      </React.Fragment>
+    );
+  }
+</script>
+<script type="text/babel">
+  ReactDOM.render(<Gugudan />, document.querySelector('#root'));
+</script>
+</body>
+</html>
