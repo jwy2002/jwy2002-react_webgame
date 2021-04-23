@@ -77,10 +77,11 @@ class NumberBaseball extends Component {
         });
     };
 
-    inputRef = createRef(); // this.inputRef
+    inputRef = createRef(); // this.inputRef, Hooks와 동일한 방법으로 사용
 
     render() {
         const { result, value, tries } = this.state;
+        //setState 사용금지, 무한반복
         return (
             <>
                 <h1>{result}</h1>
