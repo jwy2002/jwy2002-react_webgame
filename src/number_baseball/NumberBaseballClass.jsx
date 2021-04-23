@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import Try from './Try';
+import Try from './TryClass';
 
 function getNumbers() { // 숫자 네 개를 겹치지 않고 랜덤하게 뽑는 함수
     const candidate = [1,2,3,4,5,6,7,8,9];
@@ -86,6 +86,7 @@ class NumberBaseball extends Component {
                 <h1>{result}</h1>
                 <form onSubmit={this.onSubmitForm}>
                     <input ref={this.inputRef} maxLength={4} value={value} onChange={this.onChangeInput} />
+                    <button>입력!!!</button>
                 </form>
                 <div>시도: {tries.length}</div>
                 <ul>
