@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import RSP from './RSP.jsx';
+import Lotte from './lotte';
 
-ReactDOM.render(<RSP />, document.querySelector('#root'));
+ReactDOM.render(<Lotte />, document.querySelector('#root'));
