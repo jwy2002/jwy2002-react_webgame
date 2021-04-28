@@ -2,9 +2,9 @@ import React, { useState, useCallback, useContext } from 'react';
 import { TableContext, START_GAME } from "./MineSearch";
 
 const Form = () => {
-    const [row, setRow] = useState(10);
-    const [cell, setCell] = useState(10);
-    const [mine, setMine] = useState(10);
+    const [row, setRow] = useState(5);
+    const [cell, setCell] = useState(5);
+    const [mine, setMine] = useState(5);
     const { dispatch } = useContext(TableContext);
 
     const onChangeRow = useCallback((e) => {
