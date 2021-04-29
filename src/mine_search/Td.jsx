@@ -1,7 +1,8 @@
-import React, {useCallback, useContext} from 'react';
+import React, {memo, useCallback, useContext, useMemo} from 'react';
 import {CLICK_MINE, CODE, FLAG_CELL, NORMALIZE_CELL, OPEN_CELL, QUESTION_CELL, TableContext} from "./MineSearch";
 
 const getTdStyle = (code) => {
+    console.log('getTdStyle');
     switch (code) {
         case CODE.NORMAL:
         case CODE.MINE:
@@ -50,14 +51,15 @@ const getTdText = (code) => {
     }
 };
 
-const Td = ({ rowIndex, cellIndex }) => {
+const Td = memo(({ rowIndex, cellIndex }) => {
 
     const { tableData, dispatch, halted } = useContext(TableContext);
 
-    console.log('td rendered', rowIndex, cellIndex, tableData[rowIndex][cellIndex]);
+    // console.log('td rendered', rowIndex, cellIndex, tableData[rowIndex][cellIndex]);
+    console.log('td rendered');
 
     const onClickTd = useCallback(() => {
-        console.log('tableData[rowIndex][cellIndex]',tableData[rowIndex][cellIndex], halted);
+        // console.log('tableData[rowIndex][cellIndex]',tableData[rowIndex][cellIndex], halted);
 
         if (halted) {
             return;
@@ -108,14 +110,27 @@ const Td = ({ rowIndex, cellIndex }) => {
         }
     }, [tableData[rowIndex][cellIndex], halted]);
 
+    // return useMemo(() => ( //값을 Caching
+    //     <td
+    //         style={getTdStyle(tableData[rowIndex][cellIndex])}
+    //         onClick={onClickTd}
+    //         onContextMenu={onRightClickTd}
+    //     >{getTdText(tableData[rowIndex][cellIndex])}
+    //     </td>
+    // ),[tableData[rowIndex][cellIndex]]);
+    return <RealTd onClickTd={onClickTd} onRightClickTd={onRightClickTd} data={tableData[rowIndex][cellIndex]} />;
+});
+
+const RealTd = memo(({onClickTd, onRightClickTd, data}) => {
+    console.log('realtd rendered');
     return (
         <td
-            style={getTdStyle(tableData[rowIndex][cellIndex])}
+            style={getTdStyle(data)}
             onClick={onClickTd}
             onContextMenu={onRightClickTd}
-        >{getTdText(tableData[rowIndex][cellIndex])}
+        >{getTdText(data)}
         </td>
-    );
-};
+    )
+});
 
 export default Td;
